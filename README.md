@@ -1,6 +1,10 @@
 # S2IGAN
 This is the pytorch implement for our paper [S2IGAN: Speech-to-Image Generation via Adversarial Learning](https://arxiv.org/abs/2005.06968). More results can be seen in the [project page](https://xinshengwang.github.io/project/s2igan/).
 
+### Requirement
+- python -m pip install librosa==0.6.0
+- python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numba==0.48.0
+
 ### Data processing
 #### CUB-200 (Bird) and Oxford-102 (Flower)
 **step0:** You can download the synthesized spoken caption database from the [project page](https://xinshengwang.github.io/project/s2igan/), and then go to "step3". Or, you can start from "step 1" and synthesize spoken caption by yourself.
