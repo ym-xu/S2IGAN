@@ -322,6 +322,7 @@ class SpeechDataset(data.Dataset):
         split_dir = os.path.join(data_dir, split)
       
         self.filenames = self.load_filenames(data_dir, split)
+        print("self.filenames: ", self.filenames[1])
         """
 
         if split == 'train':
@@ -354,12 +355,15 @@ class SpeechDataset(data.Dataset):
             if self.split =='train':
                 unique_id = np.unique(self.class_id)
                 seq_labels = np.zeros(cfg.DATASET_ALL_CLSS_NUM)
+                # print("cfg.DATASET_TRAIN_CLSS_NUM: ", cfg.DATASET_TRAIN_CLSS_NUM)
+                # print("unique_id: ", unique_id)
                 for i in range(cfg.DATASET_TRAIN_CLSS_NUM):
-                    seq_labels[unique_id[i]-1]=i
+                   seq_labels[unique_id[i]-1]=i
                 
                 self.labels = seq_labels[np.array(self.class_id)-1]
         
         if cfg.TRAIN.MODAL != 'extraction' and cfg.TRAIN.MODAL != 'sne':
+            #print("cfg.TRAIN.MODAL: ", cfg.TRAIN.MODAL)
             if cfg.IMG.style == 'pickle':
                 image_path = os.path.join(split_dir,'image_data.pickle')
                 with open(image_path,'rb') as f:
@@ -420,6 +424,7 @@ class SpeechDataset(data.Dataset):
     def __getitem__(self, index):
         #
         # start = time.time()
+        print("key: ")
         key = self.filenames[index]     #图像名称
         cls_id = self.class_id[index]    
         if self.split =='train':

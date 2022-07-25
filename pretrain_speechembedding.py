@@ -13,6 +13,10 @@ from PIL import Image
 import sys
 sys.path.append("..")
 
+import os
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 from dataset.datasets_pre import SpeechDataset, pad_collate 
 from models import AudioModels, ImageModels, classification
 
@@ -131,6 +135,8 @@ if cfg.TRAIN.MODAL == 'co-train':
 
     assert dataset
 
+    print("dataset_test", dataset_test)
+
 
     train_loader = torch.utils.data.DataLoader(
         dataset, batch_size=cfg.TRAIN.BATCH_SIZE,
@@ -182,7 +188,7 @@ if cfg.TRAIN.MODAL == 'co-train':
     else:
         MODELS = [audio_model, image_cnn,image_model]
         
-    train(MODELS,train_loader, val_loader, args)
+    #train(MODELS,train_loader, val_loader, args)
     
 if cfg.TRAIN.MODAL == 'extraction':
     feat_extract_co(audio_model,cfg.DATA_DIR,args)

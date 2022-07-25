@@ -23,8 +23,8 @@ def audio_processing(input_file):
 
     return np.swapaxes(feat, 0, 1).astype('float32')  
 
-root = 'audio_npy'
-save_root = 'audio_mel'
+root = '/Users/yimingxu/wk_space/S2I/data/flowers/Oxford-102/Ocfords_102_audio/audio_npy'
+save_root = '/Users/yimingxu/wk_space/S2I/data/flowers/Oxford-102/Ocfords_102_audio/audio_mel'
 clss_names = os.listdir(root)
 for clss_name in sorted(clss_names):
     clss_path = os.path.join(root,clss_name)

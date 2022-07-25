@@ -1,4 +1,4 @@
-data_path=data/102flowers
+data_path=data/flowers
 save_root=outputs/pre_train/flowers
 cfg_file=cfg/Pretrain/flower_train.yml
 seed=200
