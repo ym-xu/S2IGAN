@@ -10,7 +10,7 @@ import pdb
 
 def train(Models,train_loader, test_loader, args):    
     if cfg.DATA_DIR.find('birds') != -1 or cfg.DATA_DIR.find('flowers') != -1:
-        audio_model, image_cnn,image_model,class_model = Models[0],Models[1],Models[2],Models[3]
+        audio_model, image_cnn,image_model,class_model,mm_model = Models[0],Models[1],Models[2],Models[3],Models[4]
     else:
         audio_model, image_cnn,image_model = Models[0],Models[1],Models[2]
     
@@ -158,6 +158,13 @@ def train(Models,train_loader, test_loader, args):
             lossb1,lossb2 = batch_loss(image_output,audio_output,cls_id)
             loss_batch = lossb1 + lossb2
             loss += loss_batch*cfg.Loss.gamma_batch
+
+            mm_image_output = mm_model(image_input, audio_input)
+            mm_audio_output = mm_model(audio_input, image_input)
+            lossm1,lossm2 = batch_loss(mm_image_output,mm_audio_output,cls_id)
+            loss_batch_m = lossm1 + lossm2
+            loss += loss_batch_m*cfg.Loss.gamma_batch
+
 
             # distinctive loss 
             if cfg.Loss.clss:
@@ -515,7 +522,7 @@ def feat_extract_co(audio_model, path,args):
     audio_feat = []
     j = 0
     for key in filenames:    
-        if path.find('flickr') != -1 or path.find('places') != -1:
+        if path.find('vim') != -1 or path.find('places') != -1:
             audio_file = '%s/mel/%s.npy' % (data_dir, key) 
         else:
             audio_file = '%s/audio_mel/%s.npy' % (data_dir, key)
